@@ -13,7 +13,6 @@ class Encrypter
 
   def convert_key_to_digits
      @key.to_s.chars
-    # ["1","2","3","4","5"]
   end
 
   def key_a
@@ -40,12 +39,12 @@ class Encrypter
     d.to_i
   end
 
-  def convert_date
-    Time.now.strftime("%d%m%y").to_i
-  end
+  # def convert_date
+  #   Time.now.strftime("%d%m%y").to_i
+  # end
 
   def square_date
-    convert_date ** 2
+    @date ** 2
   end
 
   def date_last_four_digits
@@ -89,6 +88,21 @@ class Encrypter
     key_d + offset_d
   end
 
+  def character_map_a
+    CHARACTER_MAP.rotate(rotation_a)
+  end
+
+  def character_map_b
+    CHARACTER_MAP.rotate(rotation_b)
+  end
+
+  def character_map_c
+    CHARACTER_MAP.rotate(rotation_c)
+  end
+
+  def character_map_d
+    CHARACTER_MAP.rotate(rotation_d)
+  end
 
   def encrypt_message_a_place
     @my_message.map!.each_with_index do |letter, location|
