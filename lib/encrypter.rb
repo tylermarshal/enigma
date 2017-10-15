@@ -2,17 +2,18 @@ require 'date'
 
 class Encrypter
 
-  attr_reader :my_message, :date, :key
+  attr_reader :date, :key
+  attr_accessor :my_message
 
-  def initalize(my_message, key = 5.times.map{rand(9)}.join, date = Time.now.strftime("%d%m%y").to_i)
+  def initialize(my_message, key = 5.times.map{rand(9)}.join, date = Time.now.strftime("%d%m%y").to_i)
     @my_message = my_message
-    @date = Date.new
+    @date = date
     @key = key
   end
 
-  def convert_key_to_digits(key)
-    #  @key.to_s.chars
-    ["1","2","3","4","5"]
+  def convert_key_to_digits
+     @key.to_s.chars
+    # ["1","2","3","4","5"]
   end
 
   def key_a
@@ -88,73 +89,79 @@ class Encrypter
     key_d + offset_d
   end
 
-  def rotate_message_a_place
-    @my_message.chars.each_with_index do |character, index|
 
-
-#     hash = Hash.new
-# cat dog wombat.each_with_index { |item, index|
-#   hash[item] = index
-# }
-# hash   #=> {"cat"=>0, "dog"=>1, "wombat"=>2}
-
+  def encrypt_message_a_place
+    @my_message.map!.each_with_index do |letter, location|
+      if location % 4 == 0
+        letter_position = CHARACTER_MAP.index(letter)
+        character_map_a[letter_position]
+      else
+        letter
+      end
+    end
   end
 
-  def rotate_message_a_place
-
+  def encrypt_message_b_place
+    @my_message.map!.each_with_index do |letter, location|
+      if (location - 1) % 4 == 0
+        letter_position = CHARACTER_MAP.index(letter)
+        character_map_b[letter_position]
+      else
+        letter
+      end
+    end
   end
 
-  def rotate_message_a_place
-
+  def encrypt_message_c_place
+    @my_message.map!.each_with_index do |letter, location|
+      if (location - 2) % 4 == 0
+        letter_position = CHARACTER_MAP.index(letter)
+        character_map_c[letter_position]
+      else
+        letter
+      end
+    end
   end
 
-  def rotate_message_a_place
-
+  def encrypt_message_d_place
+    @my_message.map!.each_with_index do |letter, location|
+      if (location - 3) % 4 == 0
+        letter_position = CHARACTER_MAP.index(letter)
+        character_map_d[letter_position]
+      else
+        letter
+      end
+    end
   end
 
+  def character_map_a
+    CHARACTER_MAP.rotate(rotation_a)
+  end
 
+  def character_map_b
+    CHARACTER_MAP.rotate(rotation_b)
+  end
 
-  CHARACTER_MAP = {
-    1	=>	"a",
-    2	=>	"b",
-    3	=>	"c",
-    4	=>	"d",
-    5	=>	"e",
-    6	=>	"f",
-    7	=>	"g",
-    8	=>	"h",
-    9	=>	"i",
-    10	=>	"j",
-    11	=>	"k",
-    12	=>	"l",
-    13	=>	"m",
-    14	=>	"n",
-    15	=>	"o",
-    16	=>	"p",
-    17	=>	"q",
-    18	=>	"r",
-    19	=>	"s",
-    20	=>	"t",
-    21	=>	"u",
-    22	=>	"v",
-    23	=>	"w",
-    24	=>	"x",
-    25	=>	"y",
-    26	=>	"z",
-    27	=>	0,
-    28	=>	1,
-    29	=>	2,
-    30	=>	3,
-    31	=>	4,
-    32	=>	5,
-    33	=>	6,
-    34	=>	7,
-    35	=>	8,
-    36	=>	9,
-    37	=>	0,
-    38	=>	" ",
-    39	=>	".",
-    40	=>	","
-  }
+  def character_map_c
+    CHARACTER_MAP.rotate(rotation_c)
+  end
 
+  def character_map_d
+    CHARACTER_MAP.rotate(rotation_d)
+  end
+
+  def split_message
+    @my_message = @my_message.chars
+  end
+
+  def encrypt
+    split_message
+    encrypt_message_a_place
+    encrypt_message_b_place
+    encrypt_message_c_place
+    encrypt_message_d_place
+    @my_message.join
+  end
+
+  CHARACTER_MAP = (" ".."z").to_a
 end
