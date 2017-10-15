@@ -5,15 +5,15 @@ class Encrypter
   attr_reader :date, :key
   attr_accessor :my_message
 
-  def initalize(my_message, key = 5.times.map{rand(9)}.join, date = Time.now.strftime("%d%m%y").to_i)
-    @my_message = ["t", "h", "i", "s", " ", "i", "s", " ", "s", "o", " ", "s", "e", "c", "r", "e", "t", " ", ".", ".", "e", "n", "d", ".", "."]
-    @date = Date.new
+  def initialize(my_message, key = 5.times.map{rand(9)}.join, date = Time.now.strftime("%d%m%y").to_i)
+    @my_message = my_message
+    @date = date
     @key = key
   end
 
-  def convert_key_to_digits(key)
-    #  @key.to_s.chars
-    ["1","2","3","4","5"]
+  def convert_key_to_digits
+     @key.to_s.chars
+    # ["1","2","3","4","5"]
   end
 
   def key_a
@@ -89,10 +89,11 @@ class Encrypter
     key_d + offset_d
   end
 
-  def rotate_message_a_place
+
+  def encrypt_message_a_place
     @my_message.map!.each_with_index do |letter, location|
       if location % 4 == 0
-        letter_position = character_map.index(letter)
+        letter_position = CHARACTER_MAP.index(letter)
         character_map_a[letter_position]
       else
         letter
@@ -100,10 +101,10 @@ class Encrypter
     end
   end
 
-  def rotate_message_b_place
+  def encrypt_message_b_place
     @my_message.map!.each_with_index do |letter, location|
       if (location - 1) % 4 == 0
-        letter_position = character_map.index(letter)
+        letter_position = CHARACTER_MAP.index(letter)
         character_map_b[letter_position]
       else
         letter
@@ -111,10 +112,10 @@ class Encrypter
     end
   end
 
-  def rotate_message_c_place
+  def encrypt_message_c_place
     @my_message.map!.each_with_index do |letter, location|
       if (location - 2) % 4 == 0
-        letter_position = character_map.index(letter)
+        letter_position = CHARACTER_MAP.index(letter)
         character_map_c[letter_position]
       else
         letter
@@ -122,10 +123,10 @@ class Encrypter
     end
   end
 
-  def rotate_message_c_place
+  def encrypt_message_d_place
     @my_message.map!.each_with_index do |letter, location|
       if (location - 3) % 4 == 0
-        letter_position = character_map.index(letter)
+        letter_position = CHARACTER_MAP.index(letter)
         character_map_d[letter_position]
       else
         letter
@@ -134,23 +135,33 @@ class Encrypter
   end
 
   def character_map_a
-    character_map.rotate(rotation_a)
+    CHARACTER_MAP.rotate(rotation_a)
   end
 
   def character_map_b
-    character_map.rotate(rotation_b)
+    CHARACTER_MAP.rotate(rotation_b)
   end
 
   def character_map_c
-    character_map.rotate(rotation_c)
+    CHARACTER_MAP.rotate(rotation_c)
   end
 
   def character_map_d
-    character_map.rotate(rotation_d)
+    CHARACTER_MAP.rotate(rotation_d)
   end
 
+  def split_message
+    @my_message = @my_message.chars
+  end
+
+  def encrypt
+    split_message
+    encrypt_message_a_place
+    encrypt_message_b_place
+    encrypt_message_c_place
+    encrypt_message_d_place
+    @my_message.join
+  end
 
   CHARACTER_MAP = (" ".."z").to_a
-
-
 end
