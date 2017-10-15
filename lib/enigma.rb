@@ -1,8 +1,10 @@
 require 'date'
+require 'decrypter'
+require 'encrypter'
 
 class Enigma
 
-  def initalize
+  def initialize
     @encrypter = Encrypter.new
 
   end
