@@ -1,37 +1,8 @@
-class Decrypter
+class Crack
 
-  def initialize(output, key, date = Time.now.strftime("%d%m%y").to_i)
+  def initialize(output, date = Time.now.strftime("%d%m%y").to_i)
     @output = output
-    @key = key
     @date = date
-  end
-
-  def convert_key_to_digits
-     @key.to_s.chars
-  end
-
-  def key_a
-    split_key = convert_key_to_digits
-    a = split_key[0] + split_key[1]
-    a.to_i
-  end
-
-  def key_b
-    split_key = convert_key_to_digits
-    b = split_key[1] + split_key[2]
-    b.to_i
-  end
-
-  def key_c
-    split_key = convert_key_to_digits
-    c = split_key[2] + split_key[3]
-    c.to_i
-  end
-
-  def key_d
-    split_key = convert_key_to_digits
-    d = split_key[3] + split_key[4]
-    d.to_i
   end
 
   def square_date
@@ -63,36 +34,9 @@ class Decrypter
     separate_offset_digits[3].to_i
   end
 
-  def rotation_a
-    key_a + offset_a
-  end
+  def find_key_a
+    
 
-  def rotation_b
-    key_b + offset_b
-  end
-
-  def rotation_c
-    key_c + offset_c
-  end
-
-  def rotation_d
-    key_d + offset_d
-  end
-
-  def character_map_a
-    CHARACTER_MAP.rotate(rotation_a)
-  end
-
-  def character_map_b
-    CHARACTER_MAP.rotate(rotation_b)
-  end
-
-  def character_map_c
-    CHARACTER_MAP.rotate(rotation_c)
-  end
-
-  def character_map_d
-    CHARACTER_MAP.rotate(rotation_d)
   end
 
   def decrypt_message_a_place
@@ -153,5 +97,7 @@ class Decrypter
   end
 
   CHARACTER_MAP = (" ".."z").to_a - ["\\"]
+
+
 
 end
