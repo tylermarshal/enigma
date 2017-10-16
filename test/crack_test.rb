@@ -55,8 +55,35 @@ class CrackTest < Minitest::Test
 
   def test_it_finds_key_a
     crack = Crack.new(")&8N0'BV(-JNu!A@)9Xeu,3e>")
+    crack.split_message
 
     assert_equal 12, crack.find_key_a
+  end
+  def test_it_finds_key_b
+    crack = Crack.new(")&8N0'BV(-JNu!A@)9Xeu,3e>")
+    crack.split_message
+
+    assert_equal 23, crack.find_key_b
+  end
+
+  def test_it_finds_key_c
+    crack = Crack.new(")&8N0'BV(-JNu!A@)9Xeu,3e>")
+    crack.split_message
+
+    assert_equal 34, crack.find_key_c
+  end
+
+  def test_it_finds_key_d
+    crack = Crack.new(")&8N0'BV(-JNu!A@)9Xeu,3e>")
+    crack.split_message
+
+    assert_equal 45, crack.find_key_d
+  end
+
+  def test_it_cracks
+    crack = Crack.new(")&8N0'BV(-JNu!A@)9Xeu,3e>")
+
+    assert_equal "this is so secret ..end..", crack.cracker
   end
 
 end
