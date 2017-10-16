@@ -1,6 +1,7 @@
 require 'date'
-require 'decrypter'
-require 'encrypter'
+require './lib/decrypter'
+require './lib/encrypter'
+require './lib/cracker'
 
 class Enigma
 

@@ -50,7 +50,7 @@ class DecrypterTest < Minitest::Test
   def test_square_date
     decrypter = Decrypter.new(")&8N0'BV(-JNu!A@)9Xeu,3e>", 12345)
 
-    assert_equal 22806134289, decrypter.square_date
+    assert_equal 25926474289, decrypter.square_date
   end
 
   def test_date_last_four_digits
@@ -169,6 +169,12 @@ class DecrypterTest < Minitest::Test
     decrypter = Decrypter.new(")&8N0'BV(-JNu!A@)9Xeu,3e>", 12345)
 
     assert_equal "this is so secret ..end..", decrypter.decrypt
+  end
+
+  def test_it_decrypts
+    decrypter = Decrypter.new("x'", 12345)
+
+    assert_equal "hi", decrypter.decrypt
   end
 
 end

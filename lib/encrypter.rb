@@ -5,7 +5,7 @@ class Encrypter
   attr_reader :date, :key
   attr_accessor :my_message
 
-  def initialize(my_message, key = 5.times.map{rand(9)}.join, date = Time.now.strftime("%d%m%y").to_i)
+  def initialize(my_message, key = 5.times.map{rand(10)}.join, date = Time.now.strftime("%d%m%y").to_i)
     @my_message = my_message
     @date = date
     @key = key
@@ -44,7 +44,7 @@ class Encrypter
   # end
 
   def square_date
-    @date ** 2
+    @date.to_i ** 2
   end
 
   def date_last_four_digits
