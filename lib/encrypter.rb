@@ -177,5 +177,5 @@ class Encrypter
     @my_message.join
   end
 
-  CHARACTER_MAP = (" ".."z").to_a
+  CHARACTER_MAP = (" ".."z").to_a - ["\\"]
 end

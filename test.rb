@@ -58,7 +58,7 @@ end
 
 
 character_map = (" ".."z").to_a
-character_map_a = character_map.rotate(16)
+character_map_a = character_map.rotate(108)
 character_map_b = character_map.rotate(25)
 character_map_c = character_map.rotate(42)
 character_map_d = character_map.rotate(54)
@@ -97,5 +97,45 @@ message.map!.each_with_index do |letter, location|
     character_map_d[letter_position]
   else
     letter
+  end
+end
+
+
+
+
+
+@output.map!.each_with_index do |letter, location|
+  if location % 4 == 0
+    letter_position = character_map_a.index(letter)
+    CHARACTER_MAP[letter_position]
+  else
+    letter
+  end
+end
+
+every_4th = []
+last_one = []
+output.each_with_index do |letter, location|
+  every_4th = []
+  if location % 4 == 0
+    every_4th << letter
+    last_one = every_4th.last
+  end
+  last_one
+end
+
+output = ")&8N0'BV(-JNu!A@)9Xeu,3e>"
+if output.length.even?
+  if (output.length + 1) % 4 == 0
+    return "n"
+  else
+    return "."
+  end
+end
+if output.length.odd?
+  if (output.length - 1) % 4 == 0
+    return "."
+  else
+    return "d"
   end
 end

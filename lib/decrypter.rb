@@ -1,5 +1,8 @@
 class Decrypter
 
+  attr_reader :key, :date
+  attr_accessor :output
+
   def initialize(output, key, date = Time.now.strftime("%d%m%y").to_i)
     @output = output
     @key = key
@@ -152,6 +155,6 @@ class Decrypter
     @output.join
   end
 
-  CHARACTER_MAP = (" ".."z").to_a
+  CHARACTER_MAP = (" ".."z").to_a - ["\\"]
 
 end
