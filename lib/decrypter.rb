@@ -1,3 +1,5 @@
+require 'pry'
+
 class Decrypter
 
   attr_reader :key, :date
@@ -38,7 +40,7 @@ class Decrypter
   end
 
   def square_date
-    @date ** 2
+    @date.to_i ** 2
   end
 
   def date_last_four_digits

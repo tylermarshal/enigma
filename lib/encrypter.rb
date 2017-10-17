@@ -5,7 +5,7 @@ class Encrypter
   attr_reader :date, :key
   attr_accessor :my_message
 
-  def initialize(my_message, key = 5.times.map{rand(9)}.join, date = Time.now.strftime("%d%m%y").to_i)
+  def initialize(my_message, key = 5.times.map{rand(10)}.join, date = Time.now.strftime("%d%m%y").to_i)
     @my_message = my_message
     @date = date
     @key = key
@@ -38,13 +38,13 @@ class Encrypter
     d = split_key[3] + split_key[4]
     d.to_i
   end
-
+  
   # def convert_date
   #   Time.now.strftime("%d%m%y").to_i
   # end
 
   def square_date
-    @date ** 2
+    @date.to_i ** 2
   end
 
   def date_last_four_digits
@@ -73,19 +73,19 @@ class Encrypter
   end
 
   def rotation_a
-    key_a + offset_a
+    KeyFinder.key_a(@key) + offset_a
   end
 
   def rotation_b
-    key_b + offset_b
+    KeyFinder.key_b(@key) + offset_b
   end
 
   def rotation_c
-    key_c + offset_c
+    KeyFinder.key_c(@key) + offset_c
   end
 
   def rotation_d
-    key_d + offset_d
+    KeyFinder.key_d(@key) + offset_d
   end
 
   def character_map_a

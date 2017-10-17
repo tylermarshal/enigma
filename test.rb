@@ -125,17 +125,13 @@ output.each_with_index do |letter, location|
 end
 
 output = ")&8N0'BV(-JNu!A@)9Xeu,3e>"
-if output.length.even?
-  if (output.length + 1) % 4 == 0
-    return "n"
-  else
-    return "."
-  end
-end
-if output.length.odd?
-  if (output.length - 1) % 4 == 0
-    return "."
-  else
-    return "d"
-  end
+output_length_remainder = output.length % 4
+if output_length_remainder == 1
+  CHARACTER_MAP.index(output.last) - 14
+elsif output_length_remainder == 2
+  14
+elsif output_length_remainder == 3
+  67
+else
+  77
 end
