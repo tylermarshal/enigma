@@ -4,7 +4,6 @@ class KeyFinder
     @key = key
   end
 
-
   def convert_key_to_digits
      @key.to_s.chars
   end

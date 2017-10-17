@@ -11,34 +11,6 @@ class Encrypter
     @key = key
   end
 
-  def convert_key_to_digits
-     @key.to_s.chars
-  end
-
-  def key_a
-    split_key = convert_key_to_digits
-    a = split_key[0] + split_key[1]
-    a.to_i
-  end
-
-  def key_b
-    split_key = convert_key_to_digits
-    b = split_key[1] + split_key[2]
-    b.to_i
-  end
-
-  def key_c
-    split_key = convert_key_to_digits
-    c = split_key[2] + split_key[3]
-    c.to_i
-  end
-
-  def key_d
-    split_key = convert_key_to_digits
-    d = split_key[3] + split_key[4]
-    d.to_i
-  end
-
   # def convert_date
   #   Time.now.strftime("%d%m%y").to_i
   # end
@@ -73,19 +45,19 @@ class Encrypter
   end
 
   def rotation_a
-    key_a + offset_a
+    KeyFinder.key_a(@key) + offset_a
   end
 
   def rotation_b
-    key_b + offset_b
+    KeyFinder.key_b(@key) + offset_b
   end
 
   def rotation_c
-    key_c + offset_c
+    KeyFinder.key_c(@key) + offset_c
   end
 
   def rotation_d
-    key_d + offset_d
+    KeyFinder.key_d(@key) + offset_d
   end
 
   def character_map_a

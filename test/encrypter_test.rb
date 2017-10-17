@@ -11,36 +11,6 @@ class EncrypterTest < Minitest::Test
     assert_instance_of Encrypter, encrypter
   end
 
-  def test_convert_key_to_digits
-    encrypter = Encrypter.new("this is so secret ..end..", 12345)
-
-    assert_equal ["1", "2", "3", "4", "5"], encrypter.convert_key_to_digits
-  end
-
-  def test_key_a
-    encrypter = Encrypter.new("this is so secret ..end..", 12345)
-
-    assert_equal 12, encrypter.key_a
-  end
-
-  def test_key_b
-    encrypter = Encrypter.new("this is so secret ..end..", 12345)
-
-    assert_equal 23, encrypter.key_b
-  end
-
-  def test_key_c
-    encrypter = Encrypter.new("this is so secret ..end..", 12345)
-
-    assert_equal 34, encrypter.key_c
-  end
-
-  def test_key_d
-    encrypter = Encrypter.new("this is so secret ..end..", 12345)
-
-    assert_equal 45, encrypter.key_d
-  end
-
   # def test_convert_date
   #   encrypter = Encrypter.new("this is so secret ..end..", 12345)
   #
