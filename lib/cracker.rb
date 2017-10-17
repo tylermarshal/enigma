@@ -40,35 +40,51 @@ class Cracker
   end
 
   def find_key_a
-      position = CHARACTER_MAP.index(@output.last) - offset_a - 14 if @output.length % 4 == 1
-      position = CHARACTER_MAP.index(@output[-2]) - offset_a - 14 if @output.length % 4 == 2
-      position = CHARACTER_MAP.index(@output[-3]) - offset_a - 67 if @output.length % 4 == 3
-      position = CHARACTER_MAP.index(@output[-4]) - offset_a - 77 if @output.length % 4 == 0
+      position = char_last - offset_a - 14 if @output.length % 4 == 1
+      position = char_2nd_to_last - offset_a - 14 if @output.length % 4 == 2
+      position = char_3rd_to_last - offset_a - 67 if @output.length % 4 == 3
+      position = char_4th_to_last - offset_a - 77 if @output.length % 4 == 0
       position < 0 ? position + 90 : position
   end
 
   def find_key_b
-      position = CHARACTER_MAP.index(@output.last) - offset_b - 14 if @output.length % 4 == 2
-      position = CHARACTER_MAP.index(@output[-2]) - offset_b - 14 if @output.length % 4 == 3
-      position = CHARACTER_MAP.index(@output[-3]) - offset_b - 67 if @output.length % 4 == 0
-      position = CHARACTER_MAP.index(@output[-4]) - offset_b - 77 if @output.length % 4 == 1
+      position = char_last - offset_b - 14 if @output.length % 4 == 2
+      position = char_2nd_to_last - offset_b - 14 if @output.length % 4 == 3
+      position = char_3rd_to_last - offset_b - 67 if @output.length % 4 == 0
+      position = char_4th_to_last - offset_b - 77 if @output.length % 4 == 1
       position < 0 ? position + 90 : position
   end
 
   def find_key_c
-      position = CHARACTER_MAP.index(@output.last) - offset_c - 14 if @output.length % 4 == 3
-      position = CHARACTER_MAP.index(@output[-2]) - offset_c - 14 if @output.length % 4 == 0
-      position = CHARACTER_MAP.index(@output[-3]) - offset_c - 67 if @output.length % 4 == 1
-      position = CHARACTER_MAP.index(@output[-4]) - offset_c - 77 if @output.length % 4 == 2
+      position = char_last - offset_c - 14 if @output.length % 4 == 3
+      position = char_2nd_to_last - offset_c - 14 if @output.length % 4 == 0
+      position = char_3rd_to_last - offset_c - 67 if @output.length % 4 == 1
+      position = char_4th_to_last - offset_c - 77 if @output.length % 4 == 2
       position < 0 ? position + 90 : position
   end
 
   def find_key_d
-      position = CHARACTER_MAP.index(@output.last) - offset_d - 14 if @output.length % 4 == 0
-      position = CHARACTER_MAP.index(@output[-2]) - offset_d - 14 if @output.length % 4 == 1
-      position = CHARACTER_MAP.index(@output[-3]) - offset_d - 67 if @output.length % 4 == 2
-      position = CHARACTER_MAP.index(@output[-4]) - offset_d - 77 if @output.length % 4 == 3
+      position = char_last - offset_d - 14 if @output.length % 4 == 0
+      position = char_2nd_to_last - offset_d - 14 if @output.length % 4 == 1
+      position = char_3rd_to_last - offset_d - 67 if @output.length % 4 == 2
+      position = char_4th_to_last - offset_d - 77 if @output.length % 4 == 3
       position < 0 ? position + 90 : position
+  end
+
+  def char_last
+    CHARACTER_MAP.index(@output.last)
+  end
+
+  def char_2nd_to_last
+    CHARACTER_MAP.index(@output[-2])
+  end
+
+  def char_3rd_to_last
+    HARACTER_MAP.index(@output[-3])
+  end
+
+  def cchar_4th_to_last
+    CHARACTER_MAP.index(@output[-4])
   end
 
   def find_full_key
