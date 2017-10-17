@@ -8,3 +8,5 @@ decrypted_output = decrypter.decrypt
 
 output_file = File.open(ARGV[1], 'w')
 output_file.write(decrypted_output)
+
+puts "Created 'decrypted.txt' with the key #{key} and date #{date}"

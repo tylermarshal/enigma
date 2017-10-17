@@ -38,7 +38,7 @@ class Encrypter
     d = split_key[3] + split_key[4]
     d.to_i
   end
-
+  
   # def convert_date
   #   Time.now.strftime("%d%m%y").to_i
   # end
@@ -73,19 +73,19 @@ class Encrypter
   end
 
   def rotation_a
-    key_a + offset_a
+    KeyFinder.key_a(@key) + offset_a
   end
 
   def rotation_b
-    key_b + offset_b
+    KeyFinder.key_b(@key) + offset_b
   end
 
   def rotation_c
-    key_c + offset_c
+    KeyFinder.key_c(@key) + offset_c
   end
 
   def rotation_d
-    key_d + offset_d
+    KeyFinder.key_d(@key) + offset_d
   end
 
   def character_map_a
