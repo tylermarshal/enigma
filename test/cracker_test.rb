@@ -80,6 +80,13 @@ class CrackerTest < Minitest::Test
     assert_equal 45, crack.find_key_d
   end
 
+  def test_it_finds_key_d
+    crack = Cracker.new(")&8N0'BV(-JNu!A@)9Xeu,3e>")
+    crack.split_message
+
+    assert_equal 12345, crack.find_full_key
+  end
+
   def test_it_cracks
     crack = Cracker.new(")&8N0'BV(-JNu!A@)9Xeu,3e>")
 

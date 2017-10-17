@@ -1,3 +1,5 @@
+require 'pry'
+
 class Cracker
 
   attr_reader :date
@@ -67,6 +69,10 @@ class Cracker
       position = CHARACTER_MAP.index(@output[-3]) - offset_d - 67 if @output.length % 4 == 2
       position = CHARACTER_MAP.index(@output[-4]) - offset_d - 77 if @output.length % 4 == 3
       position < 0 ? position + 90 : position
+  end
+
+  def find_full_key
+    (find_key_a.to_s + find_key_b.to_s[1] + find_key_c.to_s[1] + find_key_d.to_s[1]).to_i
   end
 
   def rotation_a
