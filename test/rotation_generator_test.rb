@@ -1,6 +1,7 @@
 require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/rotation_generator'
+require_relative 'test_helper'
 require 'pry'
 
 class RotationGeneratorTest < Minitest::Test

@@ -1,6 +1,7 @@
 require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/encrypter'
+require_relative 'test_helper'
 require 'pry'
 
 class EncrypterTest < Minitest::Test
