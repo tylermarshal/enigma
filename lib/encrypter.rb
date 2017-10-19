@@ -6,7 +6,7 @@ class Encrypter
   CHARACTER_MAP = (" ".."z").to_a - ["\\"]
 
   attr_reader :date, :key
-  attr_accegit ssor :my_message
+  attr_accessor :my_message
 
   def initialize(my_message, key = 5.times.map{rand(10)}.join, date = Time.now.strftime("%d%m%y").to_i)
     @my_message = my_message
@@ -37,45 +37,61 @@ class Encrypter
 
   def encrypt_message_a_place
     @my_message.map!.each_with_index do |letter, location|
-      if location % 4 == 0
-        letter_position = CHARACTER_MAP.index(letter)
-        character_map_a[letter_position]
-      else
-        letter
-      end
+      encrypt_characters_a_place(letter, location)
+    end
+  end
+
+  def encrypt_characters_a_place(letter, location)
+    if location % 4 == 0
+      letter_position = CHARACTER_MAP.index(letter)
+      character_map_a[letter_position]
+    else
+      letter
     end
   end
 
   def encrypt_message_b_place
     @my_message.map!.each_with_index do |letter, location|
-      if (location - 1) % 4 == 0
-        letter_position = CHARACTER_MAP.index(letter)
-        character_map_b[letter_position]
-      else
-        letter
-      end
+      encrypt_characters_b_place(letter, location)
+    end
+  end
+
+  def encrypt_characters_b_place(letter, location)
+    if (location - 1) % 4 == 0
+      letter_position = CHARACTER_MAP.index(letter)
+      character_map_b[letter_position]
+    else
+      letter
     end
   end
 
   def encrypt_message_c_place
     @my_message.map!.each_with_index do |letter, location|
-      if (location - 2) % 4 == 0
-        letter_position = CHARACTER_MAP.index(letter)
-        character_map_c[letter_position]
-      else
-        letter
-      end
+      encrypt_characters_c_place(letter, location)
+    end
+  end
+
+  def encrypt_characters_c_place(letter, location)
+    if (location - 2) % 4 == 0
+      letter_position = CHARACTER_MAP.index(letter)
+      character_map_c[letter_position]
+    else
+      letter
     end
   end
 
   def encrypt_message_d_place
     @my_message.map!.each_with_index do |letter, location|
-      if (location - 3) % 4 == 0
-        letter_position = CHARACTER_MAP.index(letter)
-        character_map_d[letter_position]
-      else
-        letter
-      end
+      encrypt_characters_d_place(letter, location)
+    end
+  end
+
+  def encrypt_characters_d_place(letter, location)
+    if (location - 3) % 4 == 0
+      letter_position = CHARACTER_MAP.index(letter)
+      character_map_d[letter_position]
+    else
+      letter
     end
   end
 

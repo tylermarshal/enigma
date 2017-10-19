@@ -91,11 +91,25 @@ class CrackerTest < Minitest::Test
     assert_equal ["V", "W", "X", "Y", "Z", "[", "]", "^", "_", "`", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", " ", "!", "\"", "#", "$", "%", "&", "'", "(", ")", "*", "+", ",", "-", ".", "/", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", ":", ";", "<", "=", ">", "?", "@", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U"], crack.character_map_d
   end
 
+  def test_it_cracks_the_character_a_place
+    crack = Cracker.new(")&8N0'BV(-JNu!A@)9Xeu,3e>")
+    crack.split_message
+
+    assert_equal "t", crack.crack_characters_a_place(")", 0)
+  end
+
   def test_it_cracks_the_message_a_place
     crack = Cracker.new(")&8N0'BV(-JNu!A@)9Xeu,3e>")
     crack.split_message
 
     assert_equal ["t", "&", "8", "N", " ", "'", "B", "V", "s", "-", "J", "N", "e", "!", "A", "@", "t", "9", "X", "e", "e", ",", "3", "e", "."], crack.crack_message_a_place
+  end
+
+  def test_it_cracks_the_character_b_place
+    crack = Cracker.new(")&8N0'BV(-JNu!A@)9Xeu,3e>")
+    crack.split_message
+
+    assert_equal "h", crack.crack_characters_b_place("&", 1)
   end
 
   def test_it_cracks_the_message_b_place
@@ -105,11 +119,25 @@ class CrackerTest < Minitest::Test
     assert_equal [")", "h", "8", "N", "0", "i", "B", "V", "(", "o", "J", "N", "u", "c", "A", "@", ")", " ", "X", "e", "u", "n", "3", "e", ">"], crack.crack_message_b_place
   end
 
+  def test_it_cracks_the_character_c_place
+    crack = Cracker.new(")&8N0'BV(-JNu!A@)9Xeu,3e>")
+    crack.split_message
+
+    assert_equal "i", crack.crack_characters_c_place("8", 2)
+  end
+
   def test_it_cracks_the_message_c_place
     crack = Cracker.new(")&8N0'BV(-JNu!A@)9Xeu,3e>")
     crack.split_message
 
     assert_equal [")", "&", "i", "N", "0", "'", "s", "V", "(", "-", " ", "N", "u", "!", "r", "@", ")", "9", ".", "e", "u", ",", "d", "e", ">"], crack.crack_message_c_place
+  end
+
+  def test_it_cracks_the_character_d_place
+    crack = Cracker.new(")&8N0'BV(-JNu!A@)9Xeu,3e>")
+    crack.split_message
+
+    assert_equal "s", crack.crack_characters_d_place("N", 3)
   end
 
   def test_it_cracks_the_message_d_place

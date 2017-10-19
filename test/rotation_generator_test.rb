@@ -32,7 +32,7 @@ class RotationGeneratorTest < Minitest::Test
   def test_it_changes_date_today
     rotation_generator = RotationGenerator.new(12345, Date.today)
 
-    assert_equal "181017", rotation_generator.convert_date_today
+    assert_equal "191017", rotation_generator.convert_date_today
     assert_equal ["1", "0", "1", "7"], rotation_generator.date_last_four_digits
     assert_equal [4,2,8,9], rotation_generator.offset_generator
 

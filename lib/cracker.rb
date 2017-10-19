@@ -1,5 +1,6 @@
 require 'pry'
 require './lib/rotation_generator'
+require 'date'
 
 class Cracker
 
@@ -106,45 +107,61 @@ class Cracker
 
   def crack_message_a_place
     @output.map!.each_with_index do |letter, location|
-      if location % 4 == 0
-        letter_position = character_map_a.index(letter)
-        CHARACTER_MAP[letter_position]
-      else
-        letter
-      end
+      crack_characters_a_place(letter, location)
+    end
+  end
+
+  def crack_characters_a_place(letter, location)
+    if location % 4 == 0
+      letter_position = character_map_a.index(letter)
+      CHARACTER_MAP[letter_position]
+    else
+      letter
     end
   end
 
   def crack_message_b_place
     @output.map!.each_with_index do |letter, location|
-      if (location - 1) % 4 == 0
-        letter_position = character_map_b.index(letter)
-        CHARACTER_MAP[letter_position]
-      else
-        letter
-      end
+      crack_characters_b_place(letter, location)
+    end
+  end
+
+  def crack_characters_b_place(letter, location)
+    if (location - 1) % 4 == 0
+      letter_position = character_map_b.index(letter)
+      CHARACTER_MAP[letter_position]
+    else
+      letter
     end
   end
 
   def crack_message_c_place
     @output.map!.each_with_index do |letter, location|
-      if (location - 2) % 4 == 0
-        letter_position = character_map_c.index(letter)
-        CHARACTER_MAP[letter_position]
-      else
-        letter
-      end
+      crack_characters_c_place(letter, location)
+    end
+  end
+
+  def crack_characters_c_place(letter, location)
+    if (location - 2) % 4 == 0
+      letter_position = character_map_c.index(letter)
+      CHARACTER_MAP[letter_position]
+    else
+      letter
     end
   end
 
   def crack_message_d_place
     @output.map!.each_with_index do |letter, location|
-      if (location - 3) % 4 == 0
-        letter_position = character_map_d.index(letter)
-        CHARACTER_MAP[letter_position]
-      else
-        letter
-      end
+      crack_characters_d_place(letter, location)
+    end
+  end
+
+  def crack_characters_d_place(letter, location)
+    if (location - 3) % 4 == 0
+      letter_position = character_map_d.index(letter)
+      CHARACTER_MAP[letter_position]
+    else
+      letter
     end
   end
 
