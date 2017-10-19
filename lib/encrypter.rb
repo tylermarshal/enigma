@@ -1,9 +1,12 @@
 require 'date'
+require './lib/rotation_generator'
 
 class Encrypter
 
+  CHARACTER_MAP = (" ".."z").to_a - ["\\"]
+
   attr_reader :date, :key
-  attr_accessor :my_message
+  attr_accegit ssor :my_message
 
   def initialize(my_message, key = 5.times.map{rand(10)}.join, date = Time.now.strftime("%d%m%y").to_i)
     @my_message = my_message
@@ -11,97 +14,25 @@ class Encrypter
     @key = key
   end
 
-  def convert_key_to_digits
-     @key.to_s.chars
-  end
-
-  def key_a
-    split_key = convert_key_to_digits
-    a = split_key[0] + split_key[1]
-    a.to_i
-  end
-
-  def key_b
-    split_key = convert_key_to_digits
-    b = split_key[1] + split_key[2]
-    b.to_i
-  end
-
-  def key_c
-    split_key = convert_key_to_digits
-    c = split_key[2] + split_key[3]
-    c.to_i
-  end
-
-  def key_d
-    split_key = convert_key_to_digits
-    d = split_key[3] + split_key[4]
-    d.to_i
-  end
-  
-  # def convert_date
-  #   Time.now.strftime("%d%m%y").to_i
-  # end
-
-  def square_date
-    @date.to_i ** 2
-  end
-
-  def date_last_four_digits
-    date = square_date.to_s
-    date[date.length - 4 ,4]
-  end
-
-  def separate_offset_digits
-    date_last_four_digits.chars
-  end
-
-  def offset_a
-    separate_offset_digits[0].to_i
-  end
-
-  def offset_b
-    separate_offset_digits[1].to_i
-  end
-
-  def offset_c
-    separate_offset_digits[2].to_i
-  end
-
-  def offset_d
-    separate_offset_digits[3].to_i
-  end
-
-  def rotation_a
-    KeyFinder.key_a(@key) + offset_a
-  end
-
-  def rotation_b
-    KeyFinder.key_b(@key) + offset_b
-  end
-
-  def rotation_c
-    KeyFinder.key_c(@key) + offset_c
-  end
-
-  def rotation_d
-    KeyFinder.key_d(@key) + offset_d
+  def find_rotations
+    rotation_generator = RotationGenerator.new(@key, @date)
+    rotation_generator.rotate_generator
   end
 
   def character_map_a
-    CHARACTER_MAP.rotate(rotation_a)
+    CHARACTER_MAP.rotate(find_rotations[0])
   end
 
   def character_map_b
-    CHARACTER_MAP.rotate(rotation_b)
+    CHARACTER_MAP.rotate(find_rotations[1])
   end
 
   def character_map_c
-    CHARACTER_MAP.rotate(rotation_c)
+    CHARACTER_MAP.rotate(find_rotations[2])
   end
 
   def character_map_d
-    CHARACTER_MAP.rotate(rotation_d)
+    CHARACTER_MAP.rotate(find_rotations[3])
   end
 
   def encrypt_message_a_place
@@ -148,22 +79,6 @@ class Encrypter
     end
   end
 
-  def character_map_a
-    CHARACTER_MAP.rotate(rotation_a)
-  end
-
-  def character_map_b
-    CHARACTER_MAP.rotate(rotation_b)
-  end
-
-  def character_map_c
-    CHARACTER_MAP.rotate(rotation_c)
-  end
-
-  def character_map_d
-    CHARACTER_MAP.rotate(rotation_d)
-  end
-
   def split_message
     @my_message = @my_message.chars
   end
@@ -176,6 +91,4 @@ class Encrypter
     encrypt_message_d_place
     @my_message.join
   end
-
-  CHARACTER_MAP = (" ".."z").to_a - ["\\"]
 end

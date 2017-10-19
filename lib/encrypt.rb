@@ -1,7 +1,15 @@
 require './lib/encrypter'
+require 'pry'
 
-    message = File.read(ARGV[0]).chomp
-    encrypter = Encrypter.new(message)
+    message = File.readlines(ARGV[0])
+    final_message = "#{message[0].chomp}"
+    message.shift
+    message.each do |line|
+      final_message = final_message += " "
+      final_message = final_message += line.chomp
+    end
+    
+    encrypter = Encrypter.new(final_message)
     encrypted_message = encrypter.encrypt
     key = encrypter.key
     date = encrypter.date

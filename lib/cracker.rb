@@ -1,6 +1,10 @@
 require 'pry'
+require './lib/rotation_generator'
 
 class Cracker
+
+
+  CHARACTER_MAP = (" ".."z").to_a - ["\\"]
 
   attr_reader :date
   attr_accessor :output
@@ -10,64 +14,41 @@ class Cracker
     @date = date
   end
 
-  def square_date
-    @date.to_i ** 2
+  def find_offsets
+    rotation_generator = RotationGenerator.new(@key, @date)
+    rotation_generator.offset_generator
   end
 
-  def date_last_four_digits
-    date = square_date.to_s
-    date[date.length - 4 ,4]
-  end
-
-  def separate_offset_digits
-    date_last_four_digits.chars
-  end
-
-  def offset_a
-    separate_offset_digits[0].to_i
-  end
-
-  def offset_b
-    separate_offset_digits[1].to_i
-  end
-
-  def offset_c
-    separate_offset_digits[2].to_i
-  end
-
-  def offset_d
-    separate_offset_digits[3].to_i
-  end
 
   def find_key_a
-      position = char_last - offset_a - 14 if @output.length % 4 == 1
-      position = char_2nd_to_last - offset_a - 14 if @output.length % 4 == 2
-      position = char_3rd_to_last - offset_a - 67 if @output.length % 4 == 3
-      position = char_4th_to_last - offset_a - 77 if @output.length % 4 == 0
+      position = char_last - find_offsets[0] - 14 if @output.length % 4 == 1
+      position = char_2nd_to_last - find_offsets[0] - 14 if @output.length % 4 == 2
+      position = char_3rd_to_last - find_offsets[0] - 67 if @output.length % 4 == 3
+      position = char_4th_to_last - find_offsets[0] - 77 if @output.length % 4 == 0
       position < 0 ? position + 90 : position
   end
 
   def find_key_b
-      position = char_last - offset_b - 14 if @output.length % 4 == 2
-      position = char_2nd_to_last - offset_b - 14 if @output.length % 4 == 3
-      position = char_3rd_to_last - offset_b - 67 if @output.length % 4 == 0
-      position = char_4th_to_last - offset_b - 77 if @output.length % 4 == 1
+      position = char_last - find_offsets[1] - 14 if @output.length % 4 == 2
+      position = char_2nd_to_last - find_offsets[1] - 14 if @output.length % 4 == 3
+      position = char_3rd_to_last - find_offsets[1] - 67 if @output.length % 4 == 0
+      position = char_4th_to_last - find_offsets[1] - 77 if @output.length % 4 == 1
       position < 0 ? position + 90 : position
   end
 
   def find_key_c
-      position = char_last - offset_c - 14 if @output.length % 4 == 3
-      position = char_2nd_to_last - offset_c - 14 if @output.length % 4 == 0
-      position = char_3rd_to_last - offset_c - 67 if @output.length % 4 == 1
-      position = char_4th_to_last - offset_c - 77 if @output.length % 4 == 2
+      position = char_last - find_offsets[2] - 14 if @output.length % 4 == 3
+      position = char_2nd_to_last - find_offsets[2] - 14 if @output.length % 4 == 0
+      position = char_3rd_to_last - find_offsets[2] - 67 if @output.length % 4 == 1
+      position = char_4th_to_last - find_offsets[2] - 77 if @output.length % 4 == 2
       position < 0 ? position + 90 : position
   end
 
   def find_key_d
-      position = char_last - offset_d - 14 if @output.length % 4 == 0
-      position = char_2nd_to_last - offset_d - 14 if @output.length % 4 == 1
-      position = char_3rd_to_last - offset_d - 67 if @output.length % 4 == 2
-      position = char_4th_to_last - offset_d - 77 if @output.length % 4 == 3
+      position = char_last - find_offsets[3] - 14 if @output.length % 4 == 0
+      position = char_2nd_to_last - find_offsets[3] - 14 if @output.length % 4 == 1
+      position = char_3rd_to_last - find_offsets[3] - 67 if @output.length % 4 == 2
+      position = char_4th_to_last - find_offsets[3] - 77 if @output.length % 4 == 3
       position < 0 ? position + 90 : position
   end
 
@@ -80,10 +61,10 @@ class Cracker
   end
 
   def char_3rd_to_last
-    HARACTER_MAP.index(@output[-3])
+    CHARACTER_MAP.index(@output[-3])
   end
 
-  def cchar_4th_to_last
+  def char_4th_to_last
     CHARACTER_MAP.index(@output[-4])
   end
 
@@ -92,19 +73,19 @@ class Cracker
   end
 
   def rotation_a
-    find_key_a + offset_a
+    find_key_a + find_offsets[0]
   end
 
   def rotation_b
-    find_key_b + offset_b
+    find_key_b + find_offsets[1]
   end
 
   def rotation_c
-    find_key_c + offset_c
+    find_key_c + find_offsets[2]
   end
 
   def rotation_d
-    find_key_d + offset_d
+    find_key_d + find_offsets[3]
   end
 
   def character_map_a
@@ -179,6 +160,4 @@ class Cracker
     crack_message_d_place
     @output.join
   end
-
-  CHARACTER_MAP = (" ".."z").to_a - ["\\"]
 end
